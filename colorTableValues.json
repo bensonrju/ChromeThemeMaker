@@ -1,0 +1,19 @@
+{
+    "background_tab": "WCC-Green",
+    "background_tab_inactive": "Secondary-Green",
+    "bookmark_text": "Orange",
+    "button_background": "Red187",
+    "frame": "WCC-Yellow-Green", 
+    "frame_inactive": "Secondary-Yellow-Green", 
+    "ntp_background": "",
+    "ntp_header": "color7",
+    "ntp_link": "color8",
+    "ntp_text": "Orange",
+    "omnibox_background": "color10",
+    "omnibox_text": "color11",
+    "tab_background_text": "Cool-Gray",
+    "tab_next": "Secondary-Green",
+    "toolbar": "WCC-Gold",
+    "toolbar_button_icon": "Sky-Blue",
+    "toolbar_text": "Cool-Gray"
+}

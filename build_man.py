@@ -1,22 +1,6 @@
 import json
 
-# Primary Colors
-WCC_Green = "[242, 190, 25]"
-WCC_Yellow_Green = "[151, 215, 0]"
 
-# Secondary Colors
-Secondary_Green = "[0, 77, 33]"
-Secondary_Yellow_Green = "[67, 176, 42]"
-Blue = "[0, 47, 108]"
-Teal = "[0, 103, 127]"
-Cool_Gray = "[117, 120, 123]"
-
-# Accent Colors
-WCC_Gold = "[4, 106, 56]"
-Sky_Blue = "[0, 149, 200]"
-Red187 = "[166, 25, 46]"
-Orange = "[299, 114, 0]"
-Indigo = "[71, 10, 104]"
 
 WCC_Colors = {
     "WCC-Green": [242, 190, 25],
@@ -76,4 +60,14 @@ print(colorMap)
 with open('colorOut.txt', 'w') as fout:
     json.dump(colorMap, fout)
 
+themeVersion = "1.1"
+themeName = "WCC Theme 2"
 
+manifString = """{
+  "manifest_version": 3,
+  "version": {thmVersion},
+  "name": {thmName},
+  "theme": {
+    "colors": {cmap}
+  }
+}""".format(thmVersion = themeVersion, thmName = themeName, cmap = colorMap)

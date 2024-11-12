@@ -1,8 +1,8 @@
 import json
+import colorTable as ct
+import overrideTable as otbl
 
-
-
-WCC_Colors = {
+"""WCC_Colors = {
     "WCC-Green": [242, 190, 25],
     "WCC-Yellow-Green": [151, 215, 0],
     "Secondary-Green": [0, 77, 33],
@@ -24,44 +24,72 @@ WCC_Colors = {
     "STD_Blue": [0, 0, 255],
     "STD_Red": [255, 0, 0],
     "STD_Green": [0, 255, 0]
-}
+} """
 
+
+print("Reading in color config", end='...')
 
 with open('colorTableValues.json', 'r') as fil:
     rawData = json.load(fil)
 
-print(rawData)
+if rawData.keys():
+    print(" Done.")
+else:
+    print(" ERROR: Color Config is Empty")
+
+#print(rawData)
 
 myList = []
 
 colorMap = {}
 
-print(rawData["background_tab"])
+#print(rawData["background_tab"])
 
-print("\n\n")
+#print("\n\n")
 
-print(rawData.keys())
+#print(rawData.keys())
 
-print("\n\n")
+#print("\n\n")
+
+print("Converting colors to RGB Codes", end='...')
 
 for key in rawData.keys():
-    curColor = rawData[key]
-    print(curColor)
-    if curColor in WCC_Colors:
-        #print(key)
-        colorMap[key] = WCC_Colors[curColor]
-        myList.append(rawData[key])
+    if key not in otbl.params:
+        print("ERROR: ", key, "not a valid parameter")
     else:
-        print("UNKNOWN COLOR: " + rawData[key]) 
+        curColor = rawData[key]
+        #print(curColor)
+        if curColor in ct.WCC_Colors:
+            #print(key)
+            colorMap[key] = ct.WCC_Colors[curColor]
+            myList.append(rawData[key])
+        else:
+            print("UNKNOWN COLOR: " + rawData[key]) 
 
+print(" Done.")
 
-print(colorMap)
+#print(colorMap)
 
-with open('colorOut.txt', 'w') as fout:
+print("Dumping color codes to colorOut.json", end='...')
+
+with open('colorOut.json', 'w') as fout:
     json.dump(colorMap, fout)
+
+print(" Done.")
 
 themeVersion = "1.1"
 themeName = "WCC Theme 2"
+
+#manStr = """{
+#  "manifest_version": 3,
+#  "version": VER,
+#  "name": THM,
+#  "theme": {
+#    "colors": MAP
+#  }
+#}"""
+#print(manStr)
+
 
 manifString = """{
   "manifest_version": 3,
@@ -70,4 +98,7 @@ manifString = """{
   "theme": {
     "colors": {cmap}
   }
-}""".format(thmVersion = themeVersion, thmName = themeName, cmap = colorMap)
+}"""
+#}""".format(thmVersion = themeVersion)
+#}""".format(thmVersion = themeVersion, thmName = themeName, cmap = colorMap)
+print(manifString)

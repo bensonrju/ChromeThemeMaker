@@ -1,4 +1,5 @@
 params = [
+    #  kOverride Table
     "background_tab",
     "background_tab_inactive",
     "background_tab_incognito",
@@ -22,5 +23,13 @@ params = [
     "tab_text",
     "toolbar",
     "toolbar_button_icon",
-    "toolbar_text"
+    "toolbar_text",
+
+    #  kTint Table
+    "background_tab",
+    "buttons",
+    "frame",
+    "frame_inactive",
+    "frame_incognito",
+    "frame_incognito_inactive"
 ]

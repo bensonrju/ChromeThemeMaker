@@ -22,3 +22,10 @@
 "toolbar"
 "toolbar_button_icon"
 "toolbar_text"
+
+"background_tab"
+"buttons"
+"frame"
+"frame_inactive"
+"frame_incognito"
+"frame_incognito_inactive"

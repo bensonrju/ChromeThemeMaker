@@ -2,31 +2,20 @@ import json
 import colorTable as ct
 import overrideTable as otbl
 
-"""WCC_Colors = {
-    "WCC-Green": [242, 190, 25],
-    "WCC-Yellow-Green": [151, 215, 0],
-    "Secondary-Green": [0, 77, 33],
-    "Secondary-Yellow-Green": [67, 176, 42],
-    "Blue": [0, 47, 108],
-    "Teal": [0, 103, 127],
-    "Cool-Gray": [117, 120, 123],
-    "WCC-Gold": [4, 106, 56],
-    "Sky-Blue": [0, 149, 200],
-    "Red187": [166, 25, 46],
-    "Orange": [299, 114, 0],
-    "Indigo": [71, 10, 104],
+# The root of the object that will be written
+#  to the final json file
+manifRoot = { "manifest_version" : 3,
+              "version" : "1.2",
+              "name" : "WCC Theme 2",
+              "theme" : { "colors" : {} }
+             }
 
-    "Dark-Gray": [32, 32, 32],
-
-    "STD_Black": [0, 0, 0],
-    "STD_White": [255, 255, 255],
-
-    "STD_Blue": [0, 0, 255],
-    "STD_Red": [255, 0, 0],
-    "STD_Green": [0, 255, 0]
-} """
+# The dictionary that will store the final RGB values 
+colorMap = {}
 
 
+#====+====$====+====$====+====$====+====$====+====$====
+# Begin Read-in Section
 print("Reading in color config", end='...')
 
 with open('colorTableValues.json', 'r') as fil:
@@ -36,69 +25,46 @@ if rawData.keys():
     print(" Done.")
 else:
     print(" ERROR: Color Config is Empty")
-
-#print(rawData)
-
-myList = []
-
-colorMap = {}
-
-#print(rawData["background_tab"])
-
-#print("\n\n")
-
-#print(rawData.keys())
-
-#print("\n\n")
-
+# End Read-in Section
+#====+====$====+====$====+====$====+====$====+====$====
+# Begin Conversion section
 print("Converting colors to RGB Codes", end='...')
+
+# tableMissCount keeps track of invalid theme parameters
+tableMissCount = 0
 
 for key in rawData.keys():
     if key not in otbl.params:
+        if tableMissCount == 0:
+            print(" ")
         print("ERROR: ", key, "not a valid parameter")
+        tableMissCount += 1
     else:
         curColor = rawData[key]
-        #print(curColor)
         if curColor in ct.WCC_Colors:
-            #print(key)
             colorMap[key] = ct.WCC_Colors[curColor]
-            myList.append(rawData[key])
         else:
             print("UNKNOWN COLOR: " + rawData[key]) 
 
+if tableMissCount > 0:
+    print(" RGB Color Conversion", end=' ')
 print(" Done.")
 
-#print(colorMap)
+# End Conversion Section
+#====+====$====+====$====+====$====+====$====+====$====
+# Begin Write-out Section
 
+# Set the disctionary we just made to the value of the 
+#  colors key to the RGB color dictionary we just made  
+(manifRoot["theme"])["colors"] = colorMap
+
+# Write-out section
 print("Dumping color codes to colorOut.json", end='...')
 
 with open('colorOut.json', 'w') as fout:
-    json.dump(colorMap, fout)
+    json.dump(manifRoot, fout)
 
 print(" Done.")
 
-themeVersion = "1.1"
-themeName = "WCC Theme 2"
-
-#manStr = """{
-#  "manifest_version": 3,
-#  "version": VER,
-#  "name": THM,
-#  "theme": {
-#    "colors": MAP
-#  }
-#}"""
-#print(manStr)
-
-
-manifString = """{
-  "manifest_version": 3,
-  "version": {thmVersion},
-  "name": {thmName},
-  "theme": {
-    "colors": {cmap}
-  }
-}"""
-#}""".format(thmVersion = themeVersion)
-#}""".format(thmVersion = themeVersion, thmName = themeName, cmap = colorMap)
-print(manifString)
+# End Write-out Section
+#====+====$====+====$====+====$====+====$====+====$====
